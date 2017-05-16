@@ -22,7 +22,7 @@ import container from './container';
 
 export default () => {
   const app = new Koa();
-  const rollbar = new Rollbar('POST_SERVER_ITEM_ACCESS_TOKEN');
+  const rollbar = new Rollbar('53b12fd391b844e5a1dfdcabc35ea1df');
 
   app.keys = ['some secret hurr'];
   app.use(session(app));
