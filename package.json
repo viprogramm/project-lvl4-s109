@@ -1,5 +1,5 @@
 {
-  "name": "koa-nodejs-application",
+  "name": "vi-task-manager",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -27,14 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hexlet-boilerplates/nodejs-package.git"
+    "url": "git+https://github.com/viprogramm/project-lvl4-s109.git"
   },
-  "author": "Kirill Mokevnin",
+  "author": "Vitaliy Ti",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hexlet-boilerplates/nodejs-package/issues"
+    "url": "https://github.com/viprogramm/project-lvl4-s109/issues"
   },
-  "homepage": "https://github.com/hexlet-boilerplates/nodejs-package#readme",
+  "homepage": "https://github.com/viprogramm/project-lvl4-s109#readme",
   "dependencies": {
     "babel-cli": "*",
     "babel-core": "*",

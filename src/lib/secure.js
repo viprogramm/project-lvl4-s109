@@ -5,3 +5,5 @@ const secret = 'abcdefg';
 export const encrypt = value => crypto.createHmac('sha256', secret)
   .update(value)
   .digest('hex');
+
+export default encrypt;
