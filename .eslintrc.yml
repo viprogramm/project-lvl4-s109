@@ -19,8 +19,6 @@ extends:
   - plugin:import/warnings
 
 rules:
-  consistent-return: 0
-  no-underscore-dangle: 0
   no-console: 0
   import/extensions:
       - off
