@@ -2,6 +2,13 @@ import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import { encrypt } from '../lib/secure';
 
+const requiredAuth = async (ctx, next) => {
+  if (!ctx.state.isSignedIn()) {
+    await next(ctx.throw(403));
+  }
+  await next();
+};
+
 export default (router, { User }) => {
   router
     .get('users', '/users', async (ctx) => {
@@ -23,12 +30,12 @@ export default (router, { User }) => {
         ctx.render('users/new', { f: buildFormObj(user, e) });
       }
     })
-    .get('editUser', '/users/:id', async (ctx) => {
+    .get('editUser', '/users/:id', requiredAuth, async (ctx) => {
       const { id } = ctx.params;
       const user = await User.findById(id);
       ctx.render('users/edit', { f: buildFormObj(user) });
     })
-    .patch('updateUser', '/users/:id', async (ctx) => {
+    .patch('updateUser', '/users/:id', requiredAuth, async (ctx) => {
       const { form } = ctx.request.body;
       const { id, oldPassword, newPassword } = form;
       const user = await User.findById(id);
@@ -64,7 +71,7 @@ export default (router, { User }) => {
         ctx.render('users/edit', { f: buildFormObj(user, e) });
       }
     })
-    .delete('deleteUser', '/users/:id', async (ctx) => {
+    .delete('deleteUser', '/users/:id', requiredAuth, async (ctx) => {
       const { id } = ctx.params;
       const user = await User.findById(id);
       try {
