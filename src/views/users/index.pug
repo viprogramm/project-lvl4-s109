@@ -7,9 +7,24 @@ block content
         th Full Name
         th Email
         th Created At
+        if isSignedIn()
+          th Actions
     tbody
       each user in users
         tr
           td= user.fullName
           td= user.email
           td= user.createdAt
+          if isSignedIn()
+            td
+              a(href=urlFor('editUser', user.id)) Update
+              |
+              | /
+              |
+              a.confirm(
+              href=urlFor('deleteUser', user.id)
+              data-confirm="Are you sure?"
+              data-method='delete'
+              rel='nofollow'
+              ) Delete
+

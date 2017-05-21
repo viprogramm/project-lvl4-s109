@@ -1,0 +1,12 @@
+extends /layouts/application.pug
+
+block content
+  +formFor(f, { url: urlFor('updateUser', f.object.id), method: 'post' })
+    +requestMethod('patch')
+    +input(f, 'id', { as: 'hidden' })
+    +input(f, 'email', { label: 'Email' })
+    +input(f, 'firstName', { label: 'First Name' })
+    +input(f, 'lastName', { label: 'Last Name' })
+    +input(f, 'oldPassword', { label: 'Old Password', as: 'password' })
+    +input(f, 'newPassword', { label: 'New Password', as: 'password' })
+    +button(f)

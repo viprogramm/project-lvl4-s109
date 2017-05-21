@@ -1,4 +1,7 @@
 extends /layouts/application.pug
 
 block content
-  h3 index!
+  if isSignedIn()
+    h3.mt-4 Hello my dear friend =)
+  else
+    h3.mt-4 To manage users please log in
