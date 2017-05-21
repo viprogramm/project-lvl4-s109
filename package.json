@@ -64,6 +64,7 @@
     "koa-webpack": "^0.3.1",
     "lodash": "*",
     "pg": "^6.1.2",
+    "postcss-loader": "^2.0.5",
     "rollbar": "^2.0.0",
     "sequelize": "*",
     "sqlite3": "*",
@@ -83,7 +84,6 @@
     "jest": "^18",
     "jest-supertest-matchers": "*",
     "nodemon": "*",
-    "postcss-loader": "^2.0.5",
     "supertest": "*"
   }
 }
