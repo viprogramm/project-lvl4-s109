@@ -4,7 +4,7 @@ import { encrypt } from '../lib/secure';
 
 const requiredAuth = async (ctx, next) => {
   if (!ctx.state.isSignedIn()) {
-    await next(ctx.throw(403));
+    ctx.throw(403);
   }
   await next();
 };

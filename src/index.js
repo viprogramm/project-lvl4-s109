@@ -34,6 +34,7 @@ export default () => {
     ctx.state = {
       flash: ctx.flash,
       isSignedIn: () => ctx.session.userId !== undefined,
+      // isSignedIn: () => true || ctx.session.userId !== undefined,
     };
     await next();
   });
