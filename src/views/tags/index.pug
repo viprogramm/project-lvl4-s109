@@ -1,0 +1,27 @@
+extends /layouts/application.pug
+
+block content
+  a(href=urlFor('newTag') class='m-2 d-block') Add Tag
+  table.table.table-stripped
+    thead
+      tr
+        th Name
+        if isSignedIn()
+          th Actions
+    tbody
+      each tag in tags
+        tr
+          td= tag.name
+          if isSignedIn()
+            td
+              a(href=urlFor('editTag', tag.id)) Update
+              |
+              | /
+              |
+              a.confirm(
+              href=urlFor('deleteTag', tag.id)
+              data-confirm="Are you sure?"
+              data-method='delete'
+              rel='nofollow'
+              ) Delete
+

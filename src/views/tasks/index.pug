@@ -1,0 +1,53 @@
+extends /layouts/application.pug
+
+block content
+  a(href=urlFor('newTask') class='m-2 d-block') Add Task
+  block content
+    +formFor(f, { url: urlFor('tasks'), method: 'get' })
+      div(class='d-inline-block')
+        +select(f, 'creator', { name: 'creator', options: users, label: 'Creator', empty: true })
+      div(class='d-inline-block')
+        +select(f, 'status', { name: 'status', options: statuses, label: 'Status', empty: true })
+      div(class='d-inline-block')
+        +select(f, 'assignedTo', { name: 'assignedTo', options: users, label: 'Assigned To', empty: true })
+      div(class='d-inline-block')
+        +select(f, 'tags', { name: 'tags', options: tags, label: 'Tags', empty: true })
+      div(class='d-inline-block')
+        +button(f, 'submit', 'Search')
+  table.table.table-stripped
+    thead
+      tr
+        th Name
+        th Description
+        th Status
+        th Creator
+        th Assigned To
+        th Tags
+        if isSignedIn()
+          th Actions
+    tbody
+      each task in tasks
+        tr
+          td= task.name
+          td= task.description
+          td= task.status.name
+          td= task.creator.fullName
+          td= task.assignedTo.fullName
+          td
+            each tag, index in task.tags
+              = tag.name
+              if index < Object.keys(task.tags).length - 1
+                |,
+                |
+          if isSignedIn()
+            td
+              a(href=urlFor('editTask', task.id)) Update
+              |
+              | /
+              |
+              a.confirm(
+              href=urlFor('deleteTask', task.id)
+              data-confirm="Are you sure?"
+              data-method='delete'
+              rel='nofollow'
+              ) Delete

@@ -1,13 +1,7 @@
 import _ from 'lodash';
 import buildFormObj from '../lib/formObjectBuilder';
 import { encrypt } from '../lib/secure';
-
-const requiredAuth = async (ctx, next) => {
-  if (!ctx.state.isSignedIn()) {
-    ctx.throw(403);
-  }
-  await next();
-};
+import { requiredAuth } from '../helpers/auth';
 
 export default (router, { User }) => {
   router
@@ -33,6 +27,13 @@ export default (router, { User }) => {
     .get('editUser', '/users/:id', requiredAuth, async (ctx) => {
       const { id } = ctx.params;
       const user = await User.findById(id);
+
+      if (!user) {
+        ctx.flash.set('Couldn\'t find such a user');
+        ctx.redirect(router.url('users'));
+        return;
+      }
+
       ctx.render('users/edit', { f: buildFormObj(user) });
     })
     .patch('updateUser', '/users/:id', requiredAuth, async (ctx) => {

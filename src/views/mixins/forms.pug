@@ -17,9 +17,39 @@ mixin input(f, property, options = { as: 'text' })
       if f.errors[property]
         .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
 
-mixin button(f, type = 'submit')
+mixin select(f, property, options)
+  - const value = f.object[property] === undefined ? '' : f.object[property]
+  - const inputName = options['name'] ? options['name'] : getInputName(f, property)
+  .form-group(class=(f.errors[property] && 'has-danger'))
+    label= options['label'] ? options['label'] : property
+    select(name=`${inputName}` class='form-control')
+      if(options['empty'])
+        option
+      each option in options['options']
+        if(value === option.id )
+          option(value=`${option.id}`, selected='selected')=option.name
+        else
+          option(value=`${option.id}`)=option.name
+    if f.errors[property]
+      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
+
+mixin multipleSelect(f, property, options)
+  - const value = f.object[property] === undefined ? '' : f.object[property]
+  - const selected = Object.keys(value).map(key => value[key].id)
+  .form-group(class=(f.errors[property] && 'has-danger'))
+    label= options['label'] ? options['label'] : property
+    select(name=getInputName(f, property) multiple class='form-control')
+      each option in options['options']
+        if(selected.includes(option.id) )
+          option(value=`${option.id}`, selected='selected')=option.name
+        else
+          option(value=`${option.id}`)=option.name
+    if f.errors[property]
+      .form-control-feedback= f.errors[property].map(({ message }) => message).join('. ')
+
+mixin button(f, type = 'submit', value = 'Save')
   .form-group
-    input(class='btn' type=`${type}` value=`Save`)
+    input(class='btn btn-primary' type=`${type}` value=`${value}`)
 
 mixin requestMethod(method = 'patch')
   input(name='_method' type='hidden' value=`${method}`)

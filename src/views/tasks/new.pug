@@ -1,0 +1,10 @@
+extends /layouts/application.pug
+
+block content
+  +formFor(f, { url: urlFor('tasks'), method: 'post' })
+    +input(f, 'name')
+    +input(f, 'description')
+    +select(f, 'statusId', { options: statuses, label: 'Status'})
+    +select(f, 'assignedToId', { options: users, label: 'Assigned To'})
+    +multipleSelect(f, 'tags', { options: tags, label: 'Tags'})
+    +button(f)

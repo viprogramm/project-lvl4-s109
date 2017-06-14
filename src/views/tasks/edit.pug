@@ -1,0 +1,12 @@
+extends /layouts/application.pug
+
+block content
+  +formFor(f, { url: urlFor('updateTask', f.object.id), method: 'post' })
+    +requestMethod('patch')
+    +input(f, 'id', { as: 'hidden' })
+    +input(f, 'name', { label: 'Name' })
+    +input(f, 'description')
+    +select(f, 'statusId', { options: statuses, label: 'Status' })
+    +select(f, 'assignedToId', { options: users, label: 'Assigned To' })
+    +multipleSelect(f, 'tags', { options: tags, label: 'Tags' })
+    +button(f)
