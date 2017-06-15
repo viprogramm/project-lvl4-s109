@@ -7,7 +7,7 @@ export default (router, { TaskStatus }) => {
       const taskStatuses = await TaskStatus.findAll();
       ctx.render('task-statuses', { taskStatuses });
     })
-    .get('newTaskStatus', '/task-statuses/new', (ctx) => {
+    .get('newTaskStatus', '/task-statuses/new', requiredAuth, (ctx) => {
       const taskStatus = TaskStatus.build();
       ctx.render('task-statuses/new', { f: buildFormObj(taskStatus) });
     })

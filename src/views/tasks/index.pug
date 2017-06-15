@@ -1,7 +1,8 @@
 extends /layouts/application.pug
 
 block content
-  a(href=urlFor('newTask') class='m-2 d-block') Add Task
+  if isSignedIn()
+    a(href=urlFor('newTask') class='m-2 d-block') Add Task
   block content
     +formFor(f, { url: urlFor('tasks'), method: 'get' })
       div(class='d-inline-block')

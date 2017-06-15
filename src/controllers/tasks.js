@@ -14,7 +14,7 @@ const filterTasks = (tasks, filters = {}) =>
     return filteredTasks.filter(task => task[key].id === filters[key]);
   }, tasks);
 
-const getTagsIds = (tags) => {
+const getTagsIds = (tags = []) => {
   if (typeof tags === 'string') {
     return [Number(tags)];
   }
@@ -54,7 +54,7 @@ export default (router, { Task, TaskStatus, User, Tag }) => {
 
       ctx.render('tasks', { f: buildFormObj(filters), tasks: filtredTasks, statuses, users, tags });
     })
-    .get('newTask', '/tasks/new', async (ctx) => {
+    .get('newTask', '/tasks/new', requiredAuth, async (ctx) => {
       const task = Task.build();
       const statuses = await TaskStatus.findAll();
       const users = await User.findAll().map(user => ({ id: user.id, name: user.fullName }));

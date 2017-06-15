@@ -1,7 +1,8 @@
 extends /layouts/application.pug
 
 block content
-  a(href=urlFor('newTaskStatus') class='m-2 d-block') Add Task Status
+  if isSignedIn()
+    a(href=urlFor('newTaskStatus') class='m-2 d-block') Add Task Status
   table.table.table-stripped
     thead
       tr

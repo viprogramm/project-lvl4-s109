@@ -7,7 +7,7 @@ export default (router, { Tag }) => {
       const tags = await Tag.findAll();
       ctx.render('tags', { tags });
     })
-    .get('newTag', '/tags/new', (ctx) => {
+    .get('newTag', '/tags/new', requiredAuth, (ctx) => {
       const tag = Tag.build();
       ctx.render('tags/new', { f: buildFormObj(tag) });
     })
